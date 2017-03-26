@@ -1,0 +1,6 @@
+[submodule "lib/geometrize"]
+	path = lib/geometrize
+	url = https://github.com/Tw1ddle/geometrize-lib
+[submodule "lib/args"]
+	path = lib/args
+	url = https://github.com/Tw1ddle/args

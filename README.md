@@ -1,4 +1,4 @@
-# Geometrize Demo
+# Geometrize Library Example
 
 <a href="https://github.com/Tw1ddle/geometrize-demo"><img width="425px" src="/screenshots/geometrize_demo_logo.png" alt="Geometrize Demo Logo" align="left" hspace="10" vspace="6"></a>
 
@@ -18,22 +18,15 @@ Try these options on some example images to get started:
 
 ## Options
 
-Option | Description
---- | ---
-target -path | The path to load the target image from
-output -path | The path to save the final image
-shapes -n | Number of shapes to create
-shapetypes | circles
-alpha | Mixture of the source and target image
-circles | Use circles
-ellipses | Use ellipses
-lines | Use lines
-polylines | Use polylines
-rectangles | Use rectangles
-rotatedellipses | Use rotated ellipses
-rotatedrectangles | Use rotated rectangles
-splines | Use splines
-triangles | Use triangles
+Option          | Description    | Value    |
+--------------- | ---------------| ---------|
+input -path | The path to load the target image from | Required
+output -path | The path to save the final image | Required
+shape_type | The type of shape to use | Default ellipse
+shape_count | Number of shapes to create | Defualt 250
+candidate_shape_count | The number of shapes to generate for each shape | Default 500
+mutations_count | The number of times to mutate each generated shape | Default 100
+shape_alpha | Mixture of the source and target image | 0-255
 
 ## License
 

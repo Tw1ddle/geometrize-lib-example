@@ -71,7 +71,7 @@ std::string shapeNameForType(const geometrize::ShapeTypes type)
 
 int main(int argc, char* argv[])
 {
-    args::ArgumentParser parser("Geometrize Demo - a minimal demonstration of the Geometrize library, a tool for turning images into shapes. "
+    args::ArgumentParser parser("Geometrize Library Demo - a minimal demonstration of the Geometrize library, a tool for turning images into shapes. "
                                 "Pass it a PNG image from the samples included in this distribution, or find your own online. "
                                 "Small images recommended for speed. Visit http://www.geometrize.co.uk/ for more info.");
 
@@ -88,6 +88,7 @@ int main(int argc, char* argv[])
     args::ValueFlag<std::uint32_t> mutationsPerShapeFlag(optional, "mutation_count", "The number of times to mutate every generated shape.", {'m', "number of mutations"}, 100U);
     args::ValueFlag<std::uint8_t> shapeAlphaFlag(optional, "shape_alpha", "The alpha/opacity of the generated shapes", {'a', "shape alpha (0-255)"}, 128U);
 
+    // Parse the command line arguments
     try {
         parser.ParseCLI(argc, argv);
     } catch (args::Help) {
@@ -99,6 +100,7 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    // Read in the input image
     const std::string inputImagePath{inputFileFlag.Get()};
     const geometrize::Bitmap bitmap{readImage(inputImagePath)};
     if(bitmap.getWidth() == 0 || bitmap.getHeight() == 0) {
@@ -106,12 +108,14 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    // Gather the options for geometrizing the image
     geometrize::ImageRunnerOptions options;
     options.alpha = shapeAlphaFlag.Get();
     options.maxShapeMutations = mutationsPerShapeFlag.Get();
     options.shapeCount = candidateShapeCountFlag.Get();
     options.shapeTypes = shapeTypeForName(shapeNameFlag.Get());
 
+    // Run the image runner until the image is geometrized
     geometrize::ImageRunner runner(bitmap);
     for(std::size_t steps = 0; steps < shapeCountFlag.Get(); steps++) {
         const std::vector<geometrize::ShapeResult> shapes{runner.step(options)};
@@ -120,6 +124,7 @@ int main(int argc, char* argv[])
         }
     }
 
+    // Save the geometrized image
     const std::string outFilePath{outputFileFlag.Get()};
     if(!writeImage(runner.getCurrent(), outFilePath)) {
         std::cout << "Failed to write image to: " << outFilePath;

@@ -17,13 +17,15 @@
 #include "geometrize/shape/shape.h"
 #include "geometrize/shape/shapetypes.h"
 
-geometrize::Bitmap readImage(const std::string& filePath) // Helper function to read an image file to RGBA8888 pixel data
+namespace {
+
+// Helper function to read an image file to RGBA8888 pixel data
+geometrize::Bitmap readImage(const std::string& filePath)
 {
     const char* path{filePath.c_str()};
     int w = 0;
     int h = 0;
-    int n = 0;
-    std::uint8_t* dataPtr{stbi_load(path, &w, &h, &n, 4)};
+    std::uint8_t* dataPtr{stbi_load(path, &w, &h, nullptr, 4)};
     if(dataPtr == nullptr) {
         return geometrize::Bitmap(0, 0, geometrize::rgba{0, 0, 0, 0});
     }
@@ -34,39 +36,44 @@ geometrize::Bitmap readImage(const std::string& filePath) // Helper function to 
     return bitmap;
 }
 
-bool writeImage(const geometrize::Bitmap& bitmap, const std::string& filePath) // Helper function to write a PNG file
+// Helper function to save a PNG file
+bool writeImage(const geometrize::Bitmap& bitmap, const std::string& filePath)
 {
     const char* path{filePath.c_str()};
     const void* data{bitmap.getDataRef().data()};
     return stbi_write_png(path, bitmap.getWidth(), bitmap.getHeight(), 4, data, bitmap.getWidth() * 4) != 0;
 }
 
-geometrize::shapes::ShapeTypes shapeTypeForName(const std::string& shapeName) // Helper function to convert a string to a Geometrize shape type
+// Helper function to convert a string to a Geometrize shape type
+geometrize::ShapeTypes shapeTypeForName(const std::string& shapeName)
 {
-    for(const std::pair<geometrize::shapes::ShapeTypes, std::string>& p : geometrize::shapes::shapeTypeNames) {
+    for(const std::pair<geometrize::ShapeTypes, std::string>& p : geometrize::shapeTypeNames) {
         if(p.second == shapeName) {
             return p.first;
         }
     }
     std::cout << "Bad shape type name, defaulting to ellipses \n";
-    return geometrize::shapes::ELLIPSE;
+    return geometrize::ELLIPSE;
 }
 
-std::string shapeNameForType(const geometrize::shapes::ShapeTypes type) // Helper function to convert a shape type to a human-readable string
+// Helper function to convert a Geometrize shape type to a human-readable string
+std::string shapeNameForType(const geometrize::ShapeTypes type)
 {
-    for(const std::pair<geometrize::shapes::ShapeTypes, std::string>& p : geometrize::shapes::shapeTypeNames) {
+    for(const std::pair<geometrize::ShapeTypes, std::string>& p : geometrize::shapeTypeNames) {
         if(p.first == type) {
             return p.second;
         }
     }
-    return "unknown";
+    return "unknown_shape";
+}
+
 }
 
 int main(int argc, char* argv[])
 {
     args::ArgumentParser parser("Geometrize Demo - a minimal demonstration of the Geometrize library, a tool for turning images into shapes. "
                                 "Pass it a PNG image from the samples included in this distribution, or find your own online. "
-                                "Small images recommended for speed. Visit https://github.com/Tw1ddle/geometrize-demo for more info.");
+                                "Small images recommended for speed. Visit http://www.geometrize.co.uk/ for more info.");
 
     args::HelpFlag help(parser, "help", "Show this help menu.", {'h', "help"});
 

@@ -33,18 +33,19 @@ geometrize-lib-example -i pomegranate_splitting.png -o pomegranate_splitting_out
 [![Geometrize Pomegranate Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/pomegranate_splitting.png?raw=true "Geometrize Pomegranate Example")](http://www.geometrize.co.uk)
 
 ```
+# Create an image made of 300 triangles
+geometrize-lib-example -i grapefruit.png -o grapefruit_out.png -t triangle -s 300
+```
+
+[![Geometrize Grapefruit Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/grapefruit.png?raw=true "Geometrize Grapefruit Example")](http://www.geometrize.co.uk)
+
+```
 # Create an image made of 5000 polylines
 geometrize-lib-example -i sundaes.png -o sundaes_out.png -t polyline -s 5000
 ```
 
 [![Geometrize Sundaes Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/sundaes.png?raw=true "Geometrize Sundaes Example")](http://www.geometrize.co.uk)
 
-```
-# Create an image made of 300 triangles
-geometrize-lib-example -i grapefruit.png -o grapefruit_out.png -t triangle -s 300
-```
-
-[![Geometrize Grapefruit Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/grapefruit.png?raw=true "Geometrize Grapefruit Example")](http://www.geometrize.co.uk)
 
 ```
 # Create an image made of 4000 quadratic beziers

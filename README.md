@@ -4,7 +4,7 @@
 [![Travis Geometrize Example Build Status](https://img.shields.io/travis/Tw1ddle/geometrize-lib-example.svg?style=flat-square)](https://travis-ci.org/Tw1ddle/geometrize-lib-example)
 [![AppVeyor Geometrize Example Build Status](https://ci.appveyor.com/api/projects/status/tav5nu3isxvdjkbh?svg=true)](https://ci.appveyor.com/project/Tw1ddle/geometrize-lib-example)
 
-Minimal example demonstrating the [Geometrize library](https://github.com/Tw1ddle/geometrize-lib) used in the image-to-shapes conversion app [Geometrize](http://www.geometrize.co.uk).
+Minimal example of the [Geometrize library](https://github.com/Tw1ddle/geometrize-lib), the library used in the image-to-shapes conversion app [Geometrize](http://www.geometrize.co.uk).
 
 ## Usage
 
@@ -26,8 +26,8 @@ geometrize-lib-example -i sliced_fruit.png -o sliced_fruit_out.png -t circle -s 
 [![Geometrize Fruit Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/sliced_fruit.png?raw=true "Geometrize Fruit Example")](http://www.geometrize.co.uk)
 
 ```
-# Create an image made of 350 rotated ellipses
-geometrize-lib-example -i splitting_pomegranate.png -o splitting_pomegranate_out.png -t rotated_ellipse -s 350
+# Create an image made of 400 rotated ellipses
+geometrize-lib-example -i pomegranate_splitting.png -o pomegranate_splitting_out.png -t rotated_ellipse -s 400
 ```
 
 [![Geometrize Pomegranate Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/pomegranate_splitting.png?raw=true "Geometrize Pomegranate Example")](http://www.geometrize.co.uk)

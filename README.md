@@ -4,21 +4,21 @@
 [![Travis Geometrize Example Build Status](https://img.shields.io/travis/Tw1ddle/geometrize-lib-example.svg?style=flat-square)](https://travis-ci.org/Tw1ddle/geometrize-lib-example)
 [![AppVeyor Geometrize Example Build Status](https://ci.appveyor.com/api/projects/status/tav5nu3isxvdjkbh?svg=true)](https://ci.appveyor.com/project/Tw1ddle/geometrize-lib-example)
 
-Minimal example demonstrating the [Geometrize library](https://github.com/Tw1ddle/geometrize-lib) used in the image-to-shapes app [Geometrize](http://www.geometrize.co.uk).
+Minimal example demonstrating the [Geometrize library](https://github.com/Tw1ddle/geometrize-lib) used in the image-to-shapes conversion app [Geometrize](http://www.geometrize.co.uk).
 
-Copy the binary to the [sample images](https://github.com/Tw1ddle/geometrize-lib-example/tree/master/sample_images/) folder and run it via the console.
-
-This produces an image made from 500 rotated rectangles:
+Start by copying the binary to the [sample images](https://github.com/Tw1ddle/geometrize-lib-example/tree/master/sample_images/) folder and geometrizing an example via the console. For example:
 
 ```
+# Creates an image made of 500 rotated rectangles
 geometrize-lib-example -i monarch_butterfly.png -o monarch_butterfly_out.png -t rotated_rectangle -s 500
 ```
 
 [![Geometrize Monarch Butterfly Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/monarch_butterfly.png?raw=true "Geometrize Monarch Butterfly Example")](http://www.geometrize.co.uk)
 
-This produces an image made from 400 circles:
+
 
 ```
+# Creates an image made of 400 circles
 geometrize-lib-example -i sliced_fruit.png -o sliced_fruit_out.png -t circle -s 400
 ```
 

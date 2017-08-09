@@ -6,33 +6,37 @@
 
 Minimal example demonstrating the [Geometrize library](https://github.com/Tw1ddle/geometrize-lib) used in the image-to-shapes conversion app [Geometrize](http://www.geometrize.co.uk).
 
-Start by copying the binary to the [sample images](https://github.com/Tw1ddle/geometrize-lib-example/tree/master/sample_images/) folder and geometrizing an example via the console. For example:
+## Usage
+
+Copy the binary to the [sample images](https://github.com/Tw1ddle/geometrize-lib-example/tree/master/sample_images/) folder and start geometrizing some images via the command-line.
 
 ```
-# Creates an image made of 500 rotated rectangles
+# Create an image made of 500 rotated rectangles
 geometrize-lib-example -i monarch_butterfly.png -o monarch_butterfly_out.png -t rotated_rectangle -s 500
 ```
 
 [![Geometrize Monarch Butterfly Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/monarch_butterfly.png?raw=true "Geometrize Monarch Butterfly Example")](http://www.geometrize.co.uk)
 
 
-
 ```
-# Creates an image made of 400 circles
+# Create an image made of 400 circles
 geometrize-lib-example -i sliced_fruit.png -o sliced_fruit_out.png -t circle -s 400
 ```
 
 [![Geometrize Fruit Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/sliced_fruit.png?raw=true "Geometrize Fruit Example")](http://www.geometrize.co.uk)
 
-Option          | Description    | Value    |
+
+## Options
+
+Flag            | Description    | Default    |
 --------------- | ---------------| ---------|
-input           | The path to load the input image from | Required
-output          | The path to save the output image | Required
-shape_type      | The type of shape to use | Required. One of: rectangle, rotated_rectangle, triangle, ellipse, rotated_ellipse, circle, line, quadratic_bezier, polyline
-shape_count     | Number of shapes to use in the output image | Optional, default = 250
-candidate_shape_count | The number of seed shapes tried per shape added to the output image | Optional, default = 500
-mutations_count | The maximum number of times to mutate each candidate shape | Optional, default = 100
-shape_alpha     | The opacity of each shape added to the output image | Optional, default = 128
+i               | The filepath to load the input image from | n/a
+o               | The filepath to save the output image | n/a
+t               | The type of shape to use | One of: rectangle, rotated_rectangle, triangle, ellipse, rotated_ellipse, circle, line, quadratic_bezier, polyline
+s               | Number of shapes to use in the output image | 250
+c               | The number of seed shapes tried per shape added to the output image | 500
+m               | The maximum number of times to mutate each candidate shape | 100
+a               | The opacity of each shape added to the output image | 128
 
 ## Notes
  * Got an idea or suggestion? Open an issue or send Sam a message on [Twitter](https://twitter.com/Sam_Twidale).

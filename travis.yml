@@ -1,0 +1,28 @@
+language: cpp
+os: linux
+compiler: gcc
+sudo: required
+dist: trusty
+
+# Add encrypted API key
+env:
+  global:
+    - secure: bvHgtbFY7vLSsHy9UdlaYwETvpoxossn6CUBroeK3PGABy4a/epgDKzw3z+Vtkjmwgn6pKXWMr7URmsZCLFqhwNZP7pbWkXxGIVBdWYAq9PEE4otIMdehtqTmQuXVNdKt6eShgfK/NfItFmPuPVC02jQruhhuKAzd8IxeHR/c5B3Z7I5LkusbIdAc5O7xEjx4MsCuKvThTrxnTddjHxcpH+OixjCYRjeoQC0PLepiuC1/sy/b9X8l8nSUf+tCDf9l0GqPkoHSYakhIhgdr6xlpCuyJuw8PffQEJ+YFZ7DPucZ8JA9uVD7pZQB0KQcGQtbE/urb0evhLL2TrU9TMoFyRcz5YvOUbfet96dROnNh1D6675l4TDPc1wn83zHvdsU5KTBVndCOgLY1pellLI9LnIZ5xP6TjW+BqyIfw+K/bTcF0PLL1/mZqFSRBn3VFPpp9f7cVx1ebSrCyHfrS3boICWlH9k8oAA+1VYxOaM+noMxIVVfurvtcZ9K43m97QsjEqnViCMMzS9VZs9Sx50HzdVWcNPHFOc5vZ2pkYW1czvSyTURzoVyk0XyxZ5NQFnhjisnZJj6U17tozb508kS0ywIFA3OEtK2Cy78pMU04k/fusACmQFsWtaN7Rn+eyDAXl705GalzBl1SIylwMzt4W9rzExbaNukJ2ZNt6Egg=
+
+before_install:
+  # Add ppa for testing Ubuntu packages
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+  # Get the latest version of the Geometrize library submodule, and push it to the remote (if necessary)
+  - chmod +x ./travis_update_geometrize_submodule.sh
+  - ./travis_update_geometrize_submodule.sh
+
+install:
+  - sudo apt-get install -qq g++-5
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 90
+  - sudo apt-get install -y qt5-default qttools5-dev-tools
+
+# Build the example program
+script:
+  - qmake geometrize-lib-example.pro
+  - make

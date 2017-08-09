@@ -41,7 +41,7 @@ geometrize-lib-example -i grapefruit.png -o grapefruit_out.png -t triangle -s 30
 
 ```
 # Create an image made of 300 ellipses
-geometrize-lib-example -i hot_air_balloon.png -o hot_air_balloon_out.png -t ellipse -s 500
+geometrize-lib-example -i hot_air_balloon.png -o hot_air_balloon_out.png -t ellipse -s 300
 ```
 
 [![Geometrize Hot Air Balloon Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/hot_air_balloon.png?raw=true "Geometrize Hot Air Balloon Example")](http://www.geometrize.co.uk)

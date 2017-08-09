@@ -40,12 +40,27 @@ geometrize-lib-example -i grapefruit.png -o grapefruit_out.png -t triangle -s 30
 [![Geometrize Grapefruit Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/grapefruit.png?raw=true "Geometrize Grapefruit Example")](http://www.geometrize.co.uk)
 
 ```
+# Create an image made of 300 ellipses
+geometrize-lib-example -i hot_air_balloon.png -o hot_air_balloon_out.png -t ellipse -s 500
+```
+
+[![Geometrize Hot Air Balloon Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/hot_air_balloon.png?raw=true "Geometrize Hot Air Balloon Example")](http://www.geometrize.co.uk)
+
+
+```
+# Create an image made of 500 rectangles
+geometrize-lib-example -i sunrise_at_sea.png -o sunrise_at_sea_out.png -t rectangle -s 500
+```
+
+[![Geometrize Sunrise At Sea Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/sunrise_at_sea.png?raw=true "Geometrize Sunrise At Sea Example")](http://www.geometrize.co.uk)
+
+
+```
 # Create an image made of 5000 polylines
 geometrize-lib-example -i sundaes.png -o sundaes_out.png -t polyline -s 5000
 ```
 
 [![Geometrize Sundaes Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/sundaes.png?raw=true "Geometrize Sundaes Example")](http://www.geometrize.co.uk)
-
 
 ```
 # Create an image made of 4000 quadratic beziers

@@ -19,7 +19,7 @@
 
 namespace {
 
-// Helper function to read an image file to RGBA8888 pixel data
+// Helper function to read an image file as RGBA8888 pixel data
 geometrize::Bitmap readImage(const std::string& filePath)
 {
     const char* path{filePath.c_str()};
@@ -72,8 +72,8 @@ std::string shapeNameForType(const geometrize::ShapeTypes type)
 int main(int argc, char* argv[])
 {
     args::ArgumentParser parser("Geometrize Library Demo - a minimal demonstration of the Geometrize library, a tool for turning images into shapes. "
-                                "Pass it a PNG image from the samples included in this distribution, or find your own online. "
-                                "Small images recommended for speed. Visit http://www.geometrize.co.uk/ for more info.");
+                                "Pass it an image from the samples included in this distribution, or find your own online. "
+                                "Use small images for best performance. Visit http://www.geometrize.co.uk/ for more info.");
 
     args::HelpFlag help(parser, "help", "Show this help menu.", {'h', "help"});
 

@@ -97,7 +97,7 @@ after_script:
 deploy:
   provider: releases
   api_key: ${GITHUB_API_KEY}
-  file: geometrize_lib_example_${TRAVIS_OS_NAME}_${$CXX}
+  file: geometrize_lib_example_${TRAVIS_OS_NAME}_${CXX}
   skip_cleanup: true
   overwrite: true
   on:

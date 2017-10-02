@@ -66,6 +66,9 @@ matrix:
 
 before_install:
     - eval "${MATRIX_EVAL}"
+    # Sanity check print compiler versions
+    - echo $CC
+    - echo $CXX
 
 # Add encrypted API key
 env:

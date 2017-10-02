@@ -86,7 +86,7 @@ install:
 # Build the example program
 script:
   - qmake geometrize-lib-example.pro
-  - make
+  - make CC=${CC} CXX=${CXX} LINK=${CXX}
 
 # Rename the executable so it is unique to the compiler/OS used
 before_deploy:

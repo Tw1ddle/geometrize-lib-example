@@ -85,7 +85,9 @@ install:
 script:
   - qmake geometrize-lib-example.pro
   - make
-  # Rename the executable so it is unique to the compiler/OS used
+
+# Rename the executable so it is unique to the compiler/OS used
+before_deploy:
   - pushd $TRAVIS_BUILD_DIR
   - ls -a
   - mv geometrize_lib_example geometrize_lib_example_${TRAVIS_OS_NAME}_${CXX}

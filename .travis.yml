@@ -89,6 +89,7 @@ script:
   - pushd $TRAVIS_BUILD_DIR
   - ls -a
   - mv geometrize_lib_example geometrize_lib_example_${TRAVIS_OS_NAME}_${CXX}
+  - ls -a
   - popd
 
 # Push the latest build to Github releases

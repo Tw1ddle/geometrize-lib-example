@@ -74,6 +74,8 @@ before_install:
   # Sanity check print compiler versions
   - echo $CC
   - echo $CXX
+  - echo gcc -v
+  - echo g++ -v
   # Get the latest version of the Geometrize library submodule, and push it to the remote (if necessary)
   #- chmod +x ./travis_update_geometrize_submodule.sh
   #- ./travis_update_geometrize_submodule.sh

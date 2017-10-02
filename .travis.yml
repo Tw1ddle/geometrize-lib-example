@@ -93,7 +93,7 @@ before_deploy:
   - ls -a
   - popd
 
-# Push the latest build to Github releases
+# Deploy the latest build to Github releases
 deploy:
   provider: releases
   api_key: ${GITHUB_API_KEY}

@@ -88,7 +88,7 @@ script:
   # Rename the executable so it is unique to the compiler/OS used
   - pushd $TRAVIS_BUILD_DIR
   - ls -a
-  - mv geometrize_lib_example geometrize_lib_example_${TRAVIS_OS_NAME}_${$CXX}
+  - mv geometrize_lib_example geometrize_lib_example_${TRAVIS_OS_NAME}_${CXX}
   - popd
 
 # Push the latest build to Github releases

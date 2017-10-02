@@ -75,8 +75,8 @@ before_install:
   - echo $CC
   - echo $CXX
   # Get the latest version of the Geometrize library submodule, and push it to the remote (if necessary)
-  - chmod +x ./travis_update_geometrize_submodule.sh
-  - ./travis_update_geometrize_submodule.sh
+  #- chmod +x ./travis_update_geometrize_submodule.sh
+  #- ./travis_update_geometrize_submodule.sh
 
 install:
   - sudo apt-get install -y qt5-default qttools5-dev-tools

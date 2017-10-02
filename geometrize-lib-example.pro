@@ -1,5 +1,6 @@
 include($$PWD/lib/geometrize/geometrize/geometrize.pri)
 
+CONFIG -= qt
 CONFIG += warn_on console c++11
 
 HEADERS += lib/args/args.hxx \

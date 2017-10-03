@@ -6,6 +6,8 @@
 
 Minimal example of the [Geometrize library](https://github.com/Tw1ddle/geometrize-lib), the library used in the image-to-shapes conversion app [Geometrize](http://www.geometrize.co.uk).
 
+Download the latest binaries [here](https://s3.amazonaws.com/geometrize-lib-example-bucket/index.html).
+
 ## Usage
 
 Copy the binary to the [sample images](https://github.com/Tw1ddle/geometrize-lib-example/tree/master/sample_images/) folder and start geometrizing some images via the command-line.

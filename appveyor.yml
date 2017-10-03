@@ -25,7 +25,7 @@ install:
 # Run qmake
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
-  - qmake -Wall geometrize-lib-example.pro
+  - qmake CONFIG+=%CONFIGURATION% geometrize-lib-example.pro
 
 # Build the project
 build_script:

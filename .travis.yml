@@ -160,7 +160,7 @@ script:
 before_deploy:
   - pushd ${TRAVIS_BUILD_DIR}
   - mkdir build
-  - mv geometrize_lib_example build/geometrize_lib_example_build_${TRAVIS_JOB_NUMBER}_${TRAVIS_OS_NAME}_${CXX}
+  - mv geometrize_lib_example build/geometrize_lib_example_${TRAVIS_JOB_NUMBER}_${TRAVIS_OS_NAME}_${CXX}
   - ls -a
   - popd
 
@@ -172,4 +172,5 @@ deploy:
   bucket: ${AWS_S3_BUCKET_NAME}
   local_dir: build
   skip_cleanup: true
-  upload-dir: travis
+  upload-dir: ${TRAVIS_OS_NAME}
+  acl: public_read

@@ -32,12 +32,12 @@ build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
   - '%make%'
   - dir
-  - pushd debug
+  - cd debug
   - dir
-  - popd
-  - pushd release
+  - cd ..
+  - cd release
   - dir
-  - popd
+  - cd ..
   - cd ..
   - dir
   - pushd geometrize-lib-example

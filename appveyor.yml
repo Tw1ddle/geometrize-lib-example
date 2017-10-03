@@ -31,3 +31,21 @@ before_build:
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
   - '%make%'
+  - dir
+  - move geometrize_lib_example.exe geometrize_lib_example_%APPVEYOR_BUILD_NUMBER%_%APPVEYOR_BUILD_ID%_%CONFIGURATION%_%PLATFORM%.exe
+
+artifacts:
+  - path: geometrize_lib_example_%APPVEYOR_BUILD_NUMBER%_%APPVEYOR_BUILD_NUMBER%_%CONFIGURATION%_%PLATFORM%.exe
+    name: geometrize_lib_example
+    type: zip
+
+deploy:
+  provider: S3
+  access_key_id: %AWS_ACCESS_KEY_ID%
+  secret_access_key: %AWS_SECRET_ACCESS_KEY%
+  bucket: %AWS_S3_BUCKET_NAME%
+  region: us-east-1
+  unzip: true
+  set_public: true
+  folder: windows
+  artifact: geometrize_lib_example

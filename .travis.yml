@@ -1,175 +1,174 @@
 sudo: required
 dist: trusty
 
-# Build against different versions of gcc and clang across both MacOS and Linux
-matrix:
-  include:
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env:
-         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env:
-         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-      env:
-            - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.6
-          packages:
-            - clang-3.6
-      env:
-        - MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.7
-          packages:
-            - clang-3.7
-      env:
-        - MATRIX_EVAL="CC=clang-3.7 && CXX=clang++-3.7"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.8
-          packages:
-            - clang-3.8
-      env:
-        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-3.9
-          packages:
-            - clang-3.9
-      env:
-        - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-4.0
-          packages:
-            - clang-4.0
-      env:
-        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
-
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-5.0
-          packages:
-            - clang-5.0
-      env:
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
-
-    - os: osx
-      osx_image: xcode8
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-
-    - os: osx
-      osx_image: xcode8.1
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-
-    - os: osx
-      osx_image: xcode8.2
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-
-    - os: osx
-      osx_image: xcode8.3
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-
-    - os: osx
-      osx_image: xcode9
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
-
-# Add encrypted API key
+# Add secure keys for Github and S3
 env:
   global:
-    - secure: w9A42FYKr/Ha1C5QKjYlkJHU4tSjhpy0w/LAbxRDl0CkHMTtn3J+2Z/BylVD3Qjz5NqCDbMkgW1htZ6Ms1V2MmpCIncHNo5VMxtERkVYkPMMGjoBqqY8sOX3GpOXlRf7D6CJBY7wwf8w0/26kdLzGkRDnsUdFOjnlxTToDlclWDj6b5Xvwqve1No+fAxQUtAEuoiz/h04MK0F73r8fgfzXs7qRrgVgpXXtTOgK2O0wQFrnzufC5yd5AtMSYwcbBuRibeluYnfugp75Vn/mwcZuDeKF8w/muWLJRm/rdKiiCgjMCERuUPhxHaMPMkO/gYarNPfTEJC7gXPxedJTWAn+JsN1KddEgHLGry+nyQVyviiBHPLxkyOocAvll4MvtuZ55XK+Q4zq+PL6t8irZTJB4HNt8A/Ir+fdBx1gZhZ8rhXHpHcx0KmA1E6wWW1vS2F1kWih+08GpDg0/gu7XeuPtKhh6Zgpm3uRWP1rBtdqvbilFB1lKYba3QAlZggYCNORVdF0Q14NTMgGsCO+qTzkiIj6RyagtZ+ZjU8E9EOedo5g+Is1ysiAEk2sMOC1XbLq7LZEanmWgK9wrGPdGgZUdVpBhTGiyHDvUm34LjYpKXCtUogzJWfzyZbuEWKG9oya7K8IRTFhM/UOdUIDhkWyl9H4ih+kbpJoWM1hGrPH8=
+  - secure: w9A42FYKr/Ha1C5QKjYlkJHU4tSjhpy0w/LAbxRDl0CkHMTtn3J+2Z/BylVD3Qjz5NqCDbMkgW1htZ6Ms1V2MmpCIncHNo5VMxtERkVYkPMMGjoBqqY8sOX3GpOXlRf7D6CJBY7wwf8w0/26kdLzGkRDnsUdFOjnlxTToDlclWDj6b5Xvwqve1No+fAxQUtAEuoiz/h04MK0F73r8fgfzXs7qRrgVgpXXtTOgK2O0wQFrnzufC5yd5AtMSYwcbBuRibeluYnfugp75Vn/mwcZuDeKF8w/muWLJRm/rdKiiCgjMCERuUPhxHaMPMkO/gYarNPfTEJC7gXPxedJTWAn+JsN1KddEgHLGry+nyQVyviiBHPLxkyOocAvll4MvtuZ55XK+Q4zq+PL6t8irZTJB4HNt8A/Ir+fdBx1gZhZ8rhXHpHcx0KmA1E6wWW1vS2F1kWih+08GpDg0/gu7XeuPtKhh6Zgpm3uRWP1rBtdqvbilFB1lKYba3QAlZggYCNORVdF0Q14NTMgGsCO+qTzkiIj6RyagtZ+ZjU8E9EOedo5g+Is1ysiAEk2sMOC1XbLq7LZEanmWgK9wrGPdGgZUdVpBhTGiyHDvUm34LjYpKXCtUogzJWfzyZbuEWKG9oya7K8IRTFhM/UOdUIDhkWyl9H4ih+kbpJoWM1hGrPH8=
+
+# Setup build matrix
+matrix:
+  include:
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-4.9
+    env:
+    - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-5
+    env:
+    - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-6
+    env:
+    - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-7
+    env:
+    - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-precise-3.6
+        packages:
+        - clang-3.6
+    env:
+    - MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6"
+
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-precise-3.7
+        packages:
+        - clang-3.7
+    env:
+    - MATRIX_EVAL="CC=clang-3.7 && CXX=clang++-3.7"
+
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-precise-3.8
+        packages:
+        - clang-3.8
+    env:
+    - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
+
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - llvm-toolchain-trusty-3.9
+        packages:
+        - clang-3.9
+    env:
+    - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9"
+
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - llvm-toolchain-trusty-4.0
+        packages:
+        - clang-4.0
+    env:
+    - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
+
+  - os: linux
+    addons:
+      apt:
+        sources:
+        - llvm-toolchain-trusty-5.0
+        packages:
+        - clang-5.0
+    env:
+    - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+
+  - os: osx
+    osx_image: xcode8
+    env:
+    - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+  - os: osx
+    osx_image: xcode8.1
+    env:
+    - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+  - os: osx
+    osx_image: xcode8.2
+    env:
+    - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+  - os: osx
+    osx_image: xcode8.3
+    env:
+    - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+  - os: osx
+    osx_image: xcode9
+    env:
+    - MATRIX_EVAL="CC=clang && CXX=clang++"
 
 before_install:
+  # Update Geometrize submodule
+  - chmod +x ./travis_update_geometrize_submodule.sh
+  - "./travis_update_geometrize_submodule.sh"
+
+  # 
   - eval "${MATRIX_EVAL}"
-  # Sanity check print compiler versions
   - echo $CC
   - echo $CXX
-  # Get the latest version of the Geometrize library submodule, and push it to the remote (if necessary)
-  #- chmod +x ./travis_update_geometrize_submodule.sh
-  #- ./travis_update_geometrize_submodule.sh
 
 install:
+  # Get qmake
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install qt ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew link --force qt ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y qt5-default qttools5-dev-tools ; fi
 
-# Build the example program
 script:
   - qmake geometrize-lib-example.pro
   - make CC=${CC} CXX=${CXX} LINK=${CXX}
 
-# Rename the executable so it is unique to the compiler/OS used
 before_deploy:
   - pushd $TRAVIS_BUILD_DIR
-  - mv geometrize_lib_example geometrize_lib_example_${TRAVIS_OS_NAME}_${CXX}
+  - mkdir geometrize_lib_example_artifacts
+  - mv geometrize_lib_example build/geometrize_lib_example_build_${TRAVIS_JOB_NUMBER}_${TRAVIS_OS_NAME}_${CXX}
   - ls -a
   - popd
 
-# Deploy the latest build to Github releases
+# Deploy to Amazon S3
 deploy:
-  provider: releases
-  api_key: ${GITHUB_API_KEY}
-  file: geometrize_lib_example_${TRAVIS_OS_NAME}_${CXX}
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: $AWS_S3_BUCKET_NAME
+  local_dir: build
   skip_cleanup: true
-  overwrite: true
-  on:
-    tags: true
-    all_branches: true

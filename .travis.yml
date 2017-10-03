@@ -127,6 +127,31 @@ matrix:
       env:
         - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
 
+    - os: osx
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+
+    - os: osx
+      osx_image: xcode8.1
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+    - os: osx
+      osx_image: xcode8.2
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+    - os: osx
+      osx_image: xcode8.3
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+    - os: osx
+      osx_image: xcode9
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
 # Add encrypted API key
 env:
   global:
@@ -137,8 +162,6 @@ before_install:
   # Sanity check print compiler versions
   - echo $CC
   - echo $CXX
-  - gcc -v
-  - g++ -v
   # Get the latest version of the Geometrize library submodule, and push it to the remote (if necessary)
   #- chmod +x ./travis_update_geometrize_submodule.sh
   #- ./travis_update_geometrize_submodule.sh

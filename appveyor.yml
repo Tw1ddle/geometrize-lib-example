@@ -32,9 +32,15 @@ build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
   - '%make%'
   - dir
-  - pushd %CONFIGURATION%
+  - pushd debug
   - dir
   - popd
+  - pushd release
+  - dir
+  - popd
+  - cd ..
+  - dir
+  - pushd geometrize-lib-example
   - move %CONFIGURATION%\geometrize_lib_example.exe geometrize_lib_example_%APPVEYOR_BUILD_NUMBER%_%APPVEYOR_BUILD_ID%_%CONFIGURATION%.exe
   - echo "test"
 

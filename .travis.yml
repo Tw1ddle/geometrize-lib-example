@@ -158,9 +158,9 @@ script:
   - make CC=${CC} CXX=${CXX} LINK=${CXX}
 
 before_deploy:
-  - pushd $TRAVIS_BUILD_DIR
-  - mkdir geometrize_lib_example_artifacts
-  - mv geometrize_lib_example build/geometrize_lib_example_build_${TRAVIS_JOB_NUMBER}_${TRAVIS_OS_NAME}_${CXX}
+  - pushd ${TRAVIS_BUILD_DIR}
+  - mkdir ${TRAVIS_OS_NAME}
+  - mv geometrize_lib_example ${TRAVIS_OS_NAME}/geometrize_lib_example_build_${TRAVIS_JOB_NUMBER}_${TRAVIS_OS_NAME}_${CXX}
   - ls -a
   - popd
 

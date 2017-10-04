@@ -36,4 +36,4 @@ build_script:
 artifacts:
   - path: '**\*.exe'
     name: geometrize_lib_example
-    type: exe
+    type: File

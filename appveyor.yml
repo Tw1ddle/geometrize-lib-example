@@ -2,8 +2,11 @@ environment:
   matrix:
     - QTDIR: C:\Qt\5.9\mingw53_32
       MINGW: C:\Qt\Tools\mingw53_32
+      COMPILER_NAME: mingw53_32
     - QTDIR: C:\Qt\5.7\msvc2015
+      COMPILER_NAME: msvc2015
     - QTDIR: C:\Qt\5.7\msvc2015_64
+      COMPILER_NAME: msvc2015_64
 
 configuration:
   - debug
@@ -31,7 +34,7 @@ before_build:
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
   - '%make%'
-  - move %CONFIGURATION%\geometrize_lib_example.exe geometrize_lib_example_%APPVEYOR_BUILD_NUMBER%_%APPVEYOR_BUILD_ID%_%CONFIGURATION%.exe
+  - move %CONFIGURATION%\geometrize_lib_example.exe geometrize_lib_example_%APPVEYOR_BUILD_NUMBER%_%APPVEYOR_BUILD_ID%_%COMPILER_NAME%_%CONFIGURATION%.exe
 
 # Gather artifacts
 artifacts:

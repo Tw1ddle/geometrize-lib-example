@@ -47,14 +47,3 @@ artifacts:
   - path: '**\*.exe'
     name: geometrize_lib_example
     type: exe
-
-deploy:
-  provider: S3
-  access_key_id: $env:(AWS_ACCESS_KEY_ID)
-  secret_access_key: $env:(AWS_SECRET_ACCESS_KEY)
-  bucket: $env:(AWS_S3_BUCKET_NAME)
-  region: us-east-1
-  unzip: false
-  set_public: true
-  folder: windows
-  artifact: geometrize_lib_example

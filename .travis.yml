@@ -166,7 +166,7 @@ before_deploy:
   - pushd ${TRAVIS_BUILD_DIR}
   - mkdir build
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then mv geometrize_lib_example build/geometrize_lib_example_${TRAVIS_BUILD_NUMBER}_${TRAVIS_OS_NAME}_${CXX} ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then mv geometrize_lib_example.app build/geometrize_lib_example_${TRAVIS_JOB_NUMBER}_${TRAVIS_OS_NAME}_${OSX_IMAGE_NAME}_${CXX} ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then mv geometrize_lib_example.app build/geometrize_lib_example_${TRAVIS_JOB_NUMBER}_${TRAVIS_OS_NAME}_${OSX_IMAGE_NAME} ; fi
   - popd
 
 # Deploy to Amazon S3

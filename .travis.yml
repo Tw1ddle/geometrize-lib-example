@@ -116,26 +116,31 @@ matrix:
     osx_image: xcode8
     env:
     - MATRIX_EVAL="CC=clang && CXX=clang++"
+    - OSX_IMAGE_NAME="xcode_8_0"
 
   - os: osx
     osx_image: xcode8.1
     env:
     - MATRIX_EVAL="CC=clang && CXX=clang++"
+    - OSX_IMAGE_NAME="xcode_8_1"
 
   - os: osx
     osx_image: xcode8.2
     env:
     - MATRIX_EVAL="CC=clang && CXX=clang++"
+    - OSX_IMAGE_NAME="xcode_8_2"
 
   - os: osx
     osx_image: xcode8.3
     env:
     - MATRIX_EVAL="CC=clang && CXX=clang++"
+    - OSX_IMAGE_NAME="xcode_8_3"
 
   - os: osx
     osx_image: xcode9
     env:
     - MATRIX_EVAL="CC=clang && CXX=clang++"
+    - OSX_IMAGE_NAME="xcode_9_0"
 
 before_install:
   # Update Geometrize submodule
@@ -161,7 +166,7 @@ before_deploy:
   - pushd ${TRAVIS_BUILD_DIR}
   - mkdir build
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then mv geometrize_lib_example build/geometrize_lib_example_${TRAVIS_BUILD_NUMBER}_${TRAVIS_OS_NAME}_${CXX} ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then mv geometrize_lib_example.app build/geometrize_lib_example_${TRAVIS_BUILD_NUMBER}_${TRAVIS_JOB_NUMBER}_${TRAVIS_OS_NAME}_${CXX}_${TRAVIS_XCODE_SDK} ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then mv geometrize_lib_example.app build/geometrize_lib_example_${TRAVIS_JOB_NUMBER}_${TRAVIS_OS_NAME}_${OSX_IMAGE_NAME}_${CXX} ; fi
   - popd
 
 # Deploy to Amazon S3

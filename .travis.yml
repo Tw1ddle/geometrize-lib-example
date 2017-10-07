@@ -1,7 +1,7 @@
 sudo: required
 dist: trusty
 
-# Add secure keys for Github and S3
+# Add secure key for Github
 env:
   global:
   - secure: w9A42FYKr/Ha1C5QKjYlkJHU4tSjhpy0w/LAbxRDl0CkHMTtn3J+2Z/BylVD3Qjz5NqCDbMkgW1htZ6Ms1V2MmpCIncHNo5VMxtERkVYkPMMGjoBqqY8sOX3GpOXlRf7D6CJBY7wwf8w0/26kdLzGkRDnsUdFOjnlxTToDlclWDj6b5Xvwqve1No+fAxQUtAEuoiz/h04MK0F73r8fgfzXs7qRrgVgpXXtTOgK2O0wQFrnzufC5yd5AtMSYwcbBuRibeluYnfugp75Vn/mwcZuDeKF8w/muWLJRm/rdKiiCgjMCERuUPhxHaMPMkO/gYarNPfTEJC7gXPxedJTWAn+JsN1KddEgHLGry+nyQVyviiBHPLxkyOocAvll4MvtuZ55XK+Q4zq+PL6t8irZTJB4HNt8A/Ir+fdBx1gZhZ8rhXHpHcx0KmA1E6wWW1vS2F1kWih+08GpDg0/gu7XeuPtKhh6Zgpm3uRWP1rBtdqvbilFB1lKYba3QAlZggYCNORVdF0Q14NTMgGsCO+qTzkiIj6RyagtZ+ZjU8E9EOedo5g+Is1ysiAEk2sMOC1XbLq7LZEanmWgK9wrGPdGgZUdVpBhTGiyHDvUm34LjYpKXCtUogzJWfzyZbuEWKG9oya7K8IRTFhM/UOdUIDhkWyl9H4ih+kbpJoWM1hGrPH8=
@@ -147,7 +147,7 @@ before_install:
   - chmod +x ./travis_update_geometrize_submodule.sh
   - "./travis_update_geometrize_submodule.sh"
 
-  # 
+  # Set compilers
   - eval "${MATRIX_EVAL}"
   - echo $CC
   - echo $CXX

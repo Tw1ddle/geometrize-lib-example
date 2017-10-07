@@ -1,4 +1,4 @@
-include($$PWD/lib/geometrize/geometrize/geometrize.pri)
+include(lib/geometrize/geometrize/geometrize.pri)
 
 CONFIG -= qt
 CONFIG += warn_on console c++11

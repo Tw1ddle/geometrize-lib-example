@@ -7,9 +7,9 @@ environment:
       COMPILER_NAME: msvc2015
     - QTDIR: C:\Qt\5.7\msvc2015_64
       COMPILER_NAME: msvc2015_64
-    - QTDIR: C:\Qt\5.9\msvc2017
+    - QTDIR: C:\Qt\5.7\msvc2017
       COMPILER_NAME: msvc2017
-    - QTDIR: C:\Qt\5.9\msvc2017_64
+    - QTDIR: C:\Qt\5.7\msvc2017_64
       COMPILER_NAME: msvc2017_64
 
 configuration:

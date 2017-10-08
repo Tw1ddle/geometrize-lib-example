@@ -10,7 +10,8 @@ environment:
       COMPILER_NAME: msvc2015
     - QTDIR: C:\Qt\5.7\msvc2015_64
       COMPILER_NAME: msvc2015_64
-    - QTDIR: C:\Qt\5.9.1\msvc2017_64
+    # Supposed to be binary compatible with MSVC2017, so use MSVC2015
+    - QTDIR: C:\Qt\5.9.1\msvc2015_64
       COMPILER_NAME: msvc2017_64
 
 configuration:
@@ -29,7 +30,7 @@ install:
   - if %QTDIR:msvc=%==%QTDIR% set make=mingw32-make.exe
   - if %QTDIR:_64=%==%QTDIR% ( set ARCH=x86 ) else set ARCH=x64
   - if not %QTDIR:msvc2015=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %ARCH%
-  - if not %QTDIR:msvc2017=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
+  - if %QTDIR:msvc2015=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %ARCH%
   - if not %QTDIR:msvc=%==%QTDIR% set make=nmake.exe
   - if not %QTDIR:msvc=%==%QTDIR% %make% /? > nul
 

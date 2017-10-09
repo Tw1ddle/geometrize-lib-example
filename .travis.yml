@@ -1,5 +1,6 @@
 sudo: required
 dist: trusty
+language: cpp
 
 # Add secure key for Github
 env:
@@ -143,7 +144,7 @@ matrix:
     - OSX_IMAGE_NAME="xcode_9_0"
 
 before_install:
-  # Update Geometrize submodule
+  # Get the latest versions of the submodules, and push to the remotes (if necessary)
   - chmod +x ./travis_update_geometrize_submodule.sh
   - "./travis_update_geometrize_submodule.sh"
 

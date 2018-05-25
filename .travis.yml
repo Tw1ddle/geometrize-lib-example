@@ -156,9 +156,7 @@ before_install:
   # Work around intermittent failures on OSX
   # "Homebrew must be run under Ruby 2.3! You're running 2.0.0. (RuntimeError)"
   # See https://stackoverflow.com/questions/46670305/how-to-change-ruby-version-for-homebrew-in-macos-in-travis-ci/46756693
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew update ;
-    fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update ; fi
 
 install:
   # Get qmake

@@ -2,7 +2,7 @@
 
 # This script gets the latest changes from the submodule(s), commits the changes, and pushes to the remote (only if there are any changes, to avoid an infinite build loop)
 
-git submodule update --remote --merge
+git submodule update --init --recursive --remote --merge
 
 if [[ `git status --porcelain` ]]; then
   # Push the latest version of the Geometrize submodule to the repository

@@ -71,13 +71,22 @@ geometrize-lib-example -i jammy_biscuit.png -o jammy_biscuit_out.png -t quadrati
 
 [![Geometrize Jammy Biscuit Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/jammy_biscuit.png?raw=true "Geometrize Jammy Biscuit Example")](http://www.geometrize.co.uk)
 
+```
+# Create a JSON data file defining 400 circles that make up an image
+geometrize-lib-example -i sliced_fruit.png -o sliced_fruit_out.json -t circle -s 400
+```
+
+```
+# Create a SVG image file consisting of 400 circles 
+geometrize-lib-example -i sliced_fruit.png -o sliced_fruit_out.svg -t circle -s 400
+```
 
 ## Options
 
 Flag            | Description    | Default    |
 --------------- | ---------------| ---------|
 i               | The filepath to load the input image from | n/a
-o               | The filepath to save the output image | n/a
+o               | The filepath to save the output image, JSON data or SVG | n/a
 t               | The type of shape to use | One of: rectangle, rotated_rectangle, triangle, ellipse, rotated_ellipse, circle, line, quadratic_bezier, polyline
 s               | Number of shapes to use in the output image | 250
 c               | The number of candidate shapes per shape added to the output image | 500

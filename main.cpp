@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,8 +11,11 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "lib/stb/stb_image_write.h"
 
+#include "geometrize/shaperesult.h"
 #include "geometrize/bitmap/bitmap.h"
 #include "geometrize/bitmap/rgba.h"
+#include "geometrize/exporter/shapejsonexporter.h"
+#include "geometrize/exporter/svgexporter.h"
 #include "geometrize/runner/imagerunner.h"
 #include "geometrize/runner/imagerunneroptions.h"
 #include "geometrize/shape/shape.h"
@@ -78,8 +82,8 @@ int main(int argc, char* argv[])
     args::HelpFlag help(parser, "help", "Show this help menu.", {'h', "help"});
 
     args::Group required(parser, "Required:", args::Group::Validators::All);
-    args::ValueFlag<std::string> inputFileFlag(required, "input", "The input image path.", {'i', "input path"});
-    args::ValueFlag<std::string> outputFileFlag(required, "output", "The output image path.", {'o', "output path"});
+    args::ValueFlag<std::string> inputFileFlag(required, "input", "The input image file path.", {'i', "input path"});
+    args::ValueFlag<std::string> outputFileFlag(required, "output", "The output image, JSON or SVG file path.", {'o', "output path"});
     args::ValueFlag<std::string> shapeNameFlag(required, "shape_type", "The type of shape to generate.", {'t', "type of shape to generate"}, "ellipse");
 
     args::Group optional(parser, "Optional:", args::Group::Validators::DontCare);
@@ -117,20 +121,49 @@ int main(int argc, char* argv[])
 
     // Run the image runner until the image is geometrized
     geometrize::ImageRunner runner(bitmap);
+
+    std::vector<geometrize::ShapeResult> shapeData;
     for(std::size_t steps = 0; steps < shapeCountFlag.Get(); steps++) {
         const std::vector<geometrize::ShapeResult> shapes{runner.step(options)};
         for(std::size_t i = 0; i < shapes.size(); i++) {
             std::cout << "Added shape " << steps + i << ". Type: " << shapeNameForType(shapes[i].shape->getType()) << "\n";
         }
+        std::copy(shapes.begin(), shapes.end(), std::back_inserter(shapeData));
     }
 
-    // Save the geometrized image
+    // Save the geometrized shape data (use the extension to figure out the file type)
     const std::string outFilePath{outputFileFlag.Get()};
-    if(!writeImage(runner.getCurrent(), outFilePath)) {
-        std::cout << "Failed to write image to: " << outFilePath;
-        return 1;
+
+    const auto endsWith = [](const std::string& str, const std::string& ending) {
+        if (str.length() >= ending.length()) {
+            return (0 == str.compare (str.length() - ending.length(), ending.length(), ending));
+        }
+        return false;
+    };
+
+    const auto writeStringToFile = [](const std::string& outFilePath, const std::string& data) {
+        std::ofstream outFile(outFilePath);
+        outFile << data;
+        return outFile.fail();
+    };
+
+    if(endsWith(outFilePath, ".svg")) {
+        if(!writeStringToFile(outFilePath, geometrize::exporter::exportSVG(shapeData, bitmap.getWidth(), bitmap.getHeight()))) {
+            std::cout << "Failed to write SVG file to: " << outFilePath;
+            return 2;
+        }
+    } else if(endsWith(outFilePath, ".json")) {
+        if(!writeStringToFile(outFilePath, geometrize::exporter::exportShapeJson(shapeData))) {
+            std::cout << "Failed to write JSON file to: " << outFilePath;
+            return 2;
+        }
+    } else {
+        if(!writeImage(runner.getCurrent(), outFilePath)) {
+            std::cout << "Failed to write image to: " << outFilePath;
+            return 3;
+        }
     }
 
-    std::cout << "Wrote image to: " << outFilePath;
+    std::cout << "Wrote output to: " << outFilePath;
     return 0;
 }

@@ -11,6 +11,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "lib/stb/stb_image_write.h"
 
+#include "geometrize/commonutil.h"
 #include "geometrize/shaperesult.h"
 #include "geometrize/bitmap/bitmap.h"
 #include "geometrize/bitmap/rgba.h"
@@ -19,6 +20,8 @@
 #include "geometrize/runner/imagerunner.h"
 #include "geometrize/runner/imagerunneroptions.h"
 #include "geometrize/shape/shape.h"
+#include "geometrize/shape/rectangle.h"
+#include "geometrize/shape/shapefactory.h"
 #include "geometrize/shape/shapetypes.h"
 
 namespace {
@@ -111,7 +114,6 @@ int main(int argc, char* argv[])
         std::cout << "Failed to read input image from: " << inputImagePath;
         return 1;
     }
-
     // Gather the options for geometrizing the image
     geometrize::ImageRunnerOptions options;
     options.alpha = shapeAlphaFlag.Get();
@@ -123,6 +125,16 @@ int main(int argc, char* argv[])
     geometrize::ImageRunner runner(bitmap);
 
     std::vector<geometrize::ShapeResult> shapeData;
+
+    // Hack to add a single background rectangle as the initial shape
+    const auto shape = geometrize::create(runner.getModel(), geometrize::ShapeTypes::RECTANGLE);
+    geometrize::Rectangle* rect = dynamic_cast<geometrize::Rectangle*>(shape.get());
+    rect->m_x1 = 0;
+    rect->m_y1 = 0;
+    rect->m_x2 = runner.getCurrent().getWidth();
+    rect->m_y2 = runner.getCurrent().getHeight();
+    shapeData.emplace_back(geometrize::ShapeResult{0, geometrize::commonutil::getAverageImageColor(bitmap), shape });
+
     for(std::size_t steps = 0; steps < shapeCountFlag.Get(); steps++) {
         const std::vector<geometrize::ShapeResult> shapes{runner.step(options)};
         for(std::size_t i = 0; i < shapes.size(); i++) {
@@ -144,7 +156,7 @@ int main(int argc, char* argv[])
     const auto writeStringToFile = [](const std::string& outFilePath, const std::string& data) {
         std::ofstream outFile(outFilePath);
         outFile << data;
-        return outFile.fail();
+        return outFile.is_open();
     };
 
     if(endsWith(outFilePath, ".svg")) {

@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 {
     args::ArgumentParser parser("Geometrize Library Demo - a minimal demonstration of the Geometrize library, a tool for turning images into shapes. "
                                 "Pass it an image from the samples included in this distribution, or find your own online. "
-                                "Use small images for best performance. Visit http://www.geometrize.co.uk/ for more info.");
+                                "Use small images for best performance. Visit https://www.geometrize.co.uk/ for more info.");
 
     args::HelpFlag help(parser, "help", "Show this help menu.", {'h', "help"});
 

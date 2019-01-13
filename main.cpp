@@ -39,7 +39,7 @@ geometrize::Bitmap readImage(const std::string& filePath)
     const std::vector<std::uint8_t> data{dataPtr, dataPtr + (w * h * 4)};
     delete dataPtr;
 
-    const geometrize::Bitmap bitmap(w, h, data);
+    const geometrize::Bitmap bitmap(static_cast<std::uint32_t>(w), static_cast<std::uint32_t>(h), data);
     return bitmap;
 }
 
@@ -48,7 +48,7 @@ bool writeImage(const geometrize::Bitmap& bitmap, const std::string& filePath)
 {
     const char* path{filePath.c_str()};
     const void* data{bitmap.getDataRef().data()};
-    return stbi_write_png(path, bitmap.getWidth(), bitmap.getHeight(), 4, data, bitmap.getWidth() * 4) != 0;
+    return stbi_write_png(path, static_cast<int>(bitmap.getWidth()), static_cast<int>(bitmap.getHeight()), 4, data, static_cast<int>(bitmap.getWidth()) * 4) != 0;
 }
 
 // Helper function to convert a string to a Geometrize shape type
@@ -127,12 +127,12 @@ int main(int argc, char* argv[])
     std::vector<geometrize::ShapeResult> shapeData;
 
     // Hack to add a single background rectangle as the initial shape
-    const auto shape = geometrize::create(runner.getModel(), geometrize::ShapeTypes::RECTANGLE);
+    const auto shape = geometrize::create(geometrize::ShapeTypes::RECTANGLE);
     geometrize::Rectangle* rect = dynamic_cast<geometrize::Rectangle*>(shape.get());
     rect->m_x1 = 0;
     rect->m_y1 = 0;
-    rect->m_x2 = runner.getCurrent().getWidth();
-    rect->m_y2 = runner.getCurrent().getHeight();
+    rect->m_x2 = static_cast<float>(runner.getCurrent().getWidth());
+    rect->m_y2 = static_cast<float>(runner.getCurrent().getHeight());
     shapeData.emplace_back(geometrize::ShapeResult{0, geometrize::commonutil::getAverageImageColor(bitmap), shape });
 
     for(std::size_t steps = 0; steps < shapeCountFlag.Get(); steps++) {

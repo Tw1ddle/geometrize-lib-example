@@ -1,6 +1,7 @@
 #include <cstdint>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <utility>
@@ -51,16 +52,37 @@ bool writeImage(const geometrize::Bitmap& bitmap, const std::string& filePath)
     return stbi_write_png(path, static_cast<int>(bitmap.getWidth()), static_cast<int>(bitmap.getHeight()), 4, data, static_cast<int>(bitmap.getWidth()) * 4) != 0;
 }
 
-// Helper function to convert a string to a Geometrize shape type
-geometrize::ShapeTypes shapeTypeForName(const std::string& shapeName)
+// Helper function to convert a string into the Geometrize shape types that the given string names
+// e.g. "circle rotated_rectangle" returns the ShapeTypes for those two types of shape (bitwise-or'd together into a single ShapeTypes instance)
+geometrize::ShapeTypes shapeTypesForNames(const std::string& str)
 {
-    for(const std::pair<geometrize::ShapeTypes, std::string>& p : geometrize::shapeTypeNames) {
-        if(p.second == shapeName) {
-            return p.first;
+    // Split string into words based on whitespace
+    std::istringstream iss(str);
+    const std::vector<std::string> shapeNames(std::istream_iterator<std::string>{iss},
+                                     std::istream_iterator<std::string>());
+
+    std::vector<geometrize::ShapeTypes> shapeTypes;
+
+    // Convert the shape names into ShapeTypes
+    for(const std::string& shapeName : shapeNames) {
+        for(const std::pair<geometrize::ShapeTypes, std::string>& p : geometrize::shapeTypeNames) {
+            if(p.second == shapeName) {
+                shapeTypes.push_back(p.first);
+            }
         }
     }
-    std::cout << "Bad shape type name, defaulting to ellipses \n";
-    return geometrize::ELLIPSE;
+
+    if(shapeTypes.empty()) {
+        std::cout << "Bad shape names provided, defaulting to ellipses \n";
+        return geometrize::ELLIPSE;
+    }
+
+    // Combine shape types together
+    std::underlying_type<geometrize::ShapeTypes>::type combinedShapeTypes = 0;
+    for (const auto& shapeType : shapeTypes) {
+        combinedShapeTypes |= shapeType;
+    }
+    return geometrize::ShapeTypes(combinedShapeTypes);
 }
 
 // Helper function to convert a Geometrize shape type to a human-readable string
@@ -87,7 +109,7 @@ int main(int argc, char* argv[])
     args::Group required(parser, "Required:", args::Group::Validators::All);
     args::ValueFlag<std::string> inputFileFlag(required, "input", "The input image file path.", {'i', "input path"});
     args::ValueFlag<std::string> outputFileFlag(required, "output", "The output image, JSON or SVG file path.", {'o', "output path"});
-    args::ValueFlag<std::string> shapeNameFlag(required, "shape_type", "The type of shape to generate.", {'t', "type of shape to generate"}, "ellipse");
+    args::ValueFlag<std::string> shapeNamesFlag(required, "shape_types", "The types of shapes to generate.", {'t', "types of shapes to generate"}, "ellipse");
 
     args::Group optional(parser, "Optional:", args::Group::Validators::DontCare);
     args::ValueFlag<std::uint32_t> shapeCountFlag(optional, "shape_count", "The number of shapes to generate for the final output.", {'s', "number of shapes"}, 250U);
@@ -119,7 +141,7 @@ int main(int argc, char* argv[])
     options.alpha = shapeAlphaFlag.Get();
     options.maxShapeMutations = mutationsPerShapeFlag.Get();
     options.shapeCount = candidateShapeCountFlag.Get();
-    options.shapeTypes = shapeTypeForName(shapeNameFlag.Get());
+    options.shapeTypes = shapeTypesForNames(shapeNamesFlag.Get());
 
     // Run the image runner until the image is geometrized
     geometrize::ImageRunner runner(bitmap);

@@ -14,7 +14,7 @@ Copy the binary to the [sample images](https://github.com/Tw1ddle/geometrize-lib
 
 ```
 # Create an image made of 500 rotated rectangles
-geometrize-lib-example -i monarch_butterfly.png -o monarch_butterfly_out.png -t rotated_rectangle -s 500
+geometrize_lib_example -i monarch_butterfly.png -o monarch_butterfly_out.png -t rotated_rectangle -s 500
 ```
 
 [![Geometrize Monarch Butterfly Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/monarch_butterfly.png?raw=true "Geometrize Monarch Butterfly Example")](http://www.geometrize.co.uk)
@@ -22,28 +22,28 @@ geometrize-lib-example -i monarch_butterfly.png -o monarch_butterfly_out.png -t 
 
 ```
 # Create an image made of 400 circles
-geometrize-lib-example -i sliced_fruit.png -o sliced_fruit_out.png -t circle -s 400
+geometrize_lib_example -i sliced_fruit.png -o sliced_fruit_out.png -t circle -s 400
 ```
 
 [![Geometrize Fruit Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/sliced_fruit.png?raw=true "Geometrize Fruit Example")](http://www.geometrize.co.uk)
 
 ```
 # Create an image made of 400 rotated ellipses
-geometrize-lib-example -i pomegranate_splitting.png -o pomegranate_splitting_out.png -t rotated_ellipse -s 400
+geometrize_lib_example -i pomegranate_splitting.png -o pomegranate_splitting_out.png -t rotated_ellipse -s 400
 ```
 
 [![Geometrize Pomegranate Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/pomegranate_splitting.png?raw=true "Geometrize Pomegranate Example")](http://www.geometrize.co.uk)
 
 ```
 # Create an image made of 300 triangles
-geometrize-lib-example -i grapefruit.png -o grapefruit_out.png -t triangle -s 300
+geometrize_lib_example -i grapefruit.png -o grapefruit_out.png -t triangle -s 300
 ```
 
 [![Geometrize Grapefruit Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/grapefruit.png?raw=true "Geometrize Grapefruit Example")](http://www.geometrize.co.uk)
 
 ```
 # Create an image made of 300 ellipses
-geometrize-lib-example -i hot_air_balloon.png -o hot_air_balloon_out.png -t ellipse -s 300
+geometrize_lib_example -i hot_air_balloon.png -o hot_air_balloon_out.png -t ellipse -s 300
 ```
 
 [![Geometrize Hot Air Balloon Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/hot_air_balloon.png?raw=true "Geometrize Hot Air Balloon Example")](http://www.geometrize.co.uk)
@@ -51,7 +51,7 @@ geometrize-lib-example -i hot_air_balloon.png -o hot_air_balloon_out.png -t elli
 
 ```
 # Create an image made of 500 rectangles
-geometrize-lib-example -i sunrise_at_sea.png -o sunrise_at_sea_out.png -t rectangle -s 500
+geometrize_lib_example -i sunrise_at_sea.png -o sunrise_at_sea_out.png -t rectangle -s 500
 ```
 
 [![Geometrize Sunrise At Sea Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/sunrise_at_sea.png?raw=true "Geometrize Sunrise At Sea Example")](http://www.geometrize.co.uk)
@@ -59,26 +59,31 @@ geometrize-lib-example -i sunrise_at_sea.png -o sunrise_at_sea_out.png -t rectan
 
 ```
 # Create an image made of 5000 polylines
-geometrize-lib-example -i sundaes.png -o sundaes_out.png -t polyline -s 5000
+geometrize_lib_example -i sundaes.png -o sundaes_out.png -t polyline -s 5000
 ```
 
 [![Geometrize Sundaes Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/sundaes.png?raw=true "Geometrize Sundaes Example")](http://www.geometrize.co.uk)
 
 ```
 # Create an image made of 4000 quadratic beziers
-geometrize-lib-example -i jammy_biscuit.png -o jammy_biscuit_out.png -t quadratic_bezier -s 4000
+geometrize_lib_example -i jammy_biscuit.png -o jammy_biscuit_out.png -t quadratic_bezier -s 4000
 ```
 
 [![Geometrize Jammy Biscuit Example](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/jammy_biscuit.png?raw=true "Geometrize Jammy Biscuit Example")](http://www.geometrize.co.uk)
 
 ```
 # Create a JSON data file defining 400 circles that make up an image
-geometrize-lib-example -i sliced_fruit.png -o sliced_fruit_out.json -t circle -s 400
+geometrize_lib_example -i sliced_fruit.png -o sliced_fruit_out.json -t circle -s 400
 ```
 
 ```
 # Create a SVG image file consisting of 400 circles 
-geometrize-lib-example -i sliced_fruit.png -o sliced_fruit_out.svg -t circle -s 400
+geometrize_lib_example -i sliced_fruit.png -o sliced_fruit_out.svg -t circle -s 400
+```
+
+```
+# Create an SVG image file consisting of 200 circles, ellipses and rotated rectangles
+geometrize_lib_example -i sliced_fruit.png -o sliced_fruit_out.svg -t "circle ellipse rotated_rectangle" -s 200
 ```
 
 ## Options
@@ -87,7 +92,7 @@ Flag            | Description    | Default    |
 --------------- | ---------------| ---------|
 i               | The filepath to load the input image from | n/a
 o               | The filepath to save the output image, JSON data or SVG | n/a
-t               | The type of shape to use | One of: rectangle, rotated_rectangle, triangle, ellipse, rotated_ellipse, circle, line, quadratic_bezier, polyline
+t               | The types of shapes to use | One or more of: rectangle, rotated_rectangle, triangle, ellipse, rotated_ellipse, circle, line, quadratic_bezier, polyline
 s               | Number of shapes to use in the output image | 250
 c               | The number of candidate shapes per shape added to the output image | 500
 m               | The maximum number of times to mutate each candidate shape | 100

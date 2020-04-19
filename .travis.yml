@@ -14,27 +14,28 @@ matrix:
     addons:
       apt:
         sources:
-        - ubuntu-toolchain-r-test
+          - sourceline: "ppa:ubuntu-toolchain-r/test"
         packages:
-        - g++-7
+          - g++-8
+          - libstdc++-8-dev
     env:
-    - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+      - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 
   - os: linux
     addons:
       apt:
         sources:
-        - llvm-toolchain-trusty-5.0
+          - llvm-toolchain-trusty-5.0
         packages:
-        - clang-5.0
+          - clang-5.0
     env:
-    - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+      - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
   - os: osx
-    osx_image: xcode9
+    osx_image: xcode11.3
     env:
-    - MATRIX_EVAL="CC=clang && CXX=clang++"
-    - OSX_IMAGE_NAME="xcode_9_0"
+      - MATRIX_EVAL="CC=clang && CXX=clang++"
+      - OSX_IMAGE_NAME="xcode_11_3"
 
 before_install:
   # Get the latest versions of the submodules, and push to the remotes (if necessary)

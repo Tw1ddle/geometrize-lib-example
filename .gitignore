@@ -33,3 +33,4 @@
 
 # Build Folders
 /build*
+*.user

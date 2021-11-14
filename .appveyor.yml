@@ -1,57 +1,172 @@
+branches:
+  only:
+    - master
+
+# Note that builds run in the order the images are declared
+image:
+  - Ubuntu2004
+  - macos-bigsur
+  - Visual Studio 2019
+  
+# Define the build configurations
 environment:
+  GITHUB_API_KEY:
+    secure: w1zaTUARBAuhkAKUke5sBvSkVtlDGL8YfQxROzv5oGIynVJImn+KWGFVDxyjQore
+
   matrix:
-    - QTDIR: C:\Qt\5.6\mingw49_32
-      MINGW: C:\Qt\Tools\mingw49_32
-      COMPILER_NAME: mingw49_32
-    - QTDIR: C:\Qt\5.9\mingw53_32
-      MINGW: C:\Qt\Tools\mingw53_32
-      COMPILER_NAME: mingw53_32
-    - QTDIR: C:\Qt\5.9\msvc2015
-      COMPILER_NAME: msvc2015
-    - QTDIR: C:\Qt\5.9\msvc2015_64
-      COMPILER_NAME: msvc2015_64
+    - BUILD_NAME: gcc_linux
+    - BUILD_NAME: clang_osx
+    - BUILD_NAME: mingw_windows
+      QTDIR: C:\Qt\6.2\mingw81_64
+      MINGW: C:\Qt\Tools\mingw810_64
+    - BUILD_NAME: msvc_windows
+      QTDIR: C:\Qt\6.2\msvc2019_64
+
+# Exclude invalid build configurations
+matrix:
+  exclude:
+    - image: Ubuntu2004
+      BUILD_NAME: mingw_windows
+    - image: Ubuntu2004
+      BUILD_NAME: msvc_windows
+    - image: Ubuntu2004
+      BUILD_NAME: clang_osx
+
+    - image: macos-bigsur
+      BUILD_NAME: mingw_windows
+    - image: macos-bigsur
+      BUILD_NAME: msvc_windows
+    - image: macos-bigsur
+      BUILD_NAME: gcc_linux
+
+    - image: Visual Studio 2019
+      BUILD_NAME: clang_osx
+    - image: Visual Studio 2019
+      BUILD_NAME: gcc_linux
 
 configuration:
   - debug
   - release
 
-# Get the project submodules
-# Set the environment variables and paths to make
-install:
-  - git submodule update --init --recursive
-  - call "%QTDIR%\bin\qtenv2.bat"
-  - set PATH=%PATH%;%QTDIR%\bin;%MINGW%\bin
-  - if %QTDIR:msvc=%==%QTDIR% set make=mingw32-make.exe
-  - if %QTDIR:_64=%==%QTDIR% ( set ARCH=x86 ) else set ARCH=x64
-  - if not %QTDIR:msvc2015=%==%QTDIR% call "%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %ARCH%
-  - if not %QTDIR:msvc=%==%QTDIR% set make=nmake.exe
-  - if not %QTDIR:msvc=%==%QTDIR% %make% /? > nul
+# Do configuration-specific build steps
+for:
 
-# Run qmake
-before_build:
-  - cd %APPVEYOR_BUILD_FOLDER%
-  - qmake CONFIG+=%CONFIGURATION% geometrize-lib-example.pro
+  # Linux GCC
+  - matrix:
+      only:
+        - image: Ubuntu2004
+          BUILD_NAME: gcc_linux
 
-# Build the project
-build_script:
-  - cd %APPVEYOR_BUILD_FOLDER%
-  - '%make%'
-  - move %CONFIGURATION%\geometrize_lib_example.exe geometrize_lib_example_%APPVEYOR_BUILD_NUMBER%_%APPVEYOR_BUILD_ID%_%COMPILER_NAME%_%CONFIGURATION%.exe
+    install:
+      # Configure CI bot git email/username
+      - git config --global user.name "AppVeyor CI Bot"
+      - git config --global user.email "appveyor@appveyor.org"
 
-# Gather artifacts
-artifacts:
-  - path: '**\*.exe'
-    name: geometrize_lib_example
-    type: File
+      - git submodule update --init --recursive
+      - git submodule update --remote --merge
 
-# Deploy artifacts
-deploy:
-  provider: S3
-  access_key_id: $(AWS_ACCESS_KEY_ID)
-  secret_access_key: $(AWS_SECRET_ACCESS_KEY)
-  bucket: $(AWS_S3_BUCKET_NAME)
-  region: us-east-1
-  unzip: false
-  set_public: true
-  folder: windows
-  artifact: geometrize_lib_example
+      # Push the latest versions of the submodules to the repository - note that these Linux builds run first, so other build platforms don't do this step
+      - |
+        if [[ `git status --porcelain` ]]; then
+          git checkout master
+          git add lib/geometrize
+          git commit --message "Build bot updating submodule"
+          git remote rm origin
+          git remote add origin https://${GITHUB_API_KEY}@github.com/Tw1ddle/geometrize-lib-example.git > /dev/null 2>&1
+          git push origin master
+        fi
+
+      - sudo apt update -qq --yes --force-yes
+      - sudo apt install libgl1-mesa-dev --yes --force-yes # Needed to avoid -lGL linker error
+
+      - export PATH=$HOME/Qt/6.1/gcc_64/bin:$PATH
+
+
+    before_build:
+      # Debug prints
+      - cd $HOME/Qt
+      - ls -a
+
+      - cd $APPVEYOR_BUILD_FOLDER
+      - qmake geometrize-lib-example.pro
+
+    build_script:
+      - cd $APPVEYOR_BUILD_FOLDER
+      - make
+
+
+
+  # Clang OSX
+  - matrix:
+      only:
+        - image: macos-bigsur
+          BUILD_NAME: clang_osx
+
+    install:
+      - git submodule update --init --recursive
+      - export PATH=$HOME/Qt/6.1/macos/bin:$PATH
+
+    before_build:
+      # Debug prints
+      - cd $HOME/Qt
+      - ls -a
+
+      - cd $APPVEYOR_BUILD_FOLDER     
+      - qmake geometrize-lib-example.pro
+
+    build_script:
+      - cd $APPVEYOR_BUILD_FOLDER
+      - make
+
+
+
+  # Windows MSVC
+  - matrix:
+      only:
+        - image: Visual Studio 2019
+          BUILD_NAME: msvc_windows
+
+    install:
+      - git submodule update --init --recursive
+      - set PATH=%PATH%;%QTDIR%\bin
+      - call "%QTDIR%\bin\qtenv2.bat"
+      - call "%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" x64
+      - set make=nmake.exe
+
+    before_build:
+      # Debug prints
+      - cd %QTDIR%
+      - ls -a
+
+      - cd %APPVEYOR_BUILD_FOLDER%
+      - qmake geometrize-lib-example.pro
+
+    build_script:
+      - cd %APPVEYOR_BUILD_FOLDER%
+      - '%make%'
+
+
+
+  # Windows Mingw
+  - matrix:
+      only:
+        - image: Visual Studio 2019
+          BUILD_NAME: mingw_windows
+
+    install:
+      - git submodule update --init --recursive
+      - set PATH=%PATH%;%QTDIR%\bin;%MINGW%\bin
+      - call "%QTDIR%\bin\qtenv2.bat"
+      - set make=mingw32-make.exe
+
+    before_build:
+      # Debug prints
+      - cd %QTDIR%
+      - ls -a
+    
+      - cd %APPVEYOR_BUILD_FOLDER%
+      - qmake geometrize-lib-example.pro
+
+    build_script:
+      - cd %APPVEYOR_BUILD_FOLDER%
+      - '%make%'

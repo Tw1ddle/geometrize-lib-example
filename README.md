@@ -1,7 +1,7 @@
 [![Geometrize library example logo](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/screenshots/geometrize_lib_example_logo.png?raw=true "Geometrize - library for geometrizing images into geometric primitives demo logo")](https://www.geometrize.co.uk)
 
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/Tw1ddle/geometrize-lib-example/blob/master/LICENSE)
-[![AppVeyor Geometrize Example Build Status](https://ci.appveyor.com/api/projects/status/tav5nu3isxvdjkbh?svg=true)](https://ci.appveyor.com/project/Tw1ddle/geometrize-lib-example)
+[![Build Status Badge](https://ci.appveyor.com/api/projects/status/github/Tw1ddle/geometrize-lib-example)](https://ci.appveyor.com/project/Tw1ddle/geometrize-lib-example)
 
 Minimal example of the [Geometrize library](https://github.com/Tw1ddle/geometrize-lib), the library used in the image-to-shapes conversion app [Geometrize](https://www.geometrize.co.uk).
 
